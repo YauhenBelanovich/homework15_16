@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="yauhen2012@gmail.com">
+        <createTable tableName="item">
+            <column name="item_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(40)"/>
+            <column name="description" type="varchar(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="yauhen2012@gmail.com">
+        <createTable tableName="item_details">
+            <column name="item_id" type="BIGINT">
+                <constraints primaryKey="true"
+                             nullable="false"
+                             foreignKeyName="item_id"
+                             references="item(item_id)"/>
+            </column>
+            <column name="price" type="integer(11)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="yauhen2012@gmail.com">
+        <createTable tableName="shop">
+            <column name="shop_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(40)"/>
+            <column name="location" type="varchar(40)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="yauhen2012@gmail.com">
+        <createTable tableName="references_between_item_shop">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="item_id" type="BIGINT">
+                <constraints foreignKeyName="item_id" referencedColumnNames="item(item_id)" nullable="false"/>
+            </column>
+            <column name="shop_id" type="BIGINT">
+                <constraints foreignKeyName="shop_id" referencedColumnNames="shop(shop_id)" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
